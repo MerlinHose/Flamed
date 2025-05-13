@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:Flamed.Scripts.View"
+             x:Class="Flamed.Pages.LoginPage"
+             Title="Login"
+             x:DataType="viewModel:LoginViewModel">
+
+    <VerticalStackLayout Spacing="20" Padding="30">
+
+        <!-- Header -->
+        <Label Text="Welcome to Flamed!" 
+               FontSize="28"
+               HorizontalOptions="Center"
+               FontAttributes="Bold"/>
+
+        <!-- Email Input -->
+        <Entry Placeholder="admin@flamed.net" 
+               Text="{Binding Email}"
+               Keyboard="Email"
+               ClearButtonVisibility="WhileEditing">
+            <Entry.Behaviors>
+                <xct:EmailValidationBehavior 
+                    InvalidStyle="{StaticResource InvalidEntryStyle}"
+                    Flags="ValidateOnValueChanged"/>
+            </Entry.Behaviors>
+        </Entry>
+
+        <!-- Password Input -->
+        <Entry Placeholder="Password" 
+               Text="{Binding Password}"
+               IsPassword="True"
+               ClearButtonVisibility="WhileEditing">
+            <Entry.Behaviors>
+                <xct:RequiredStringValidationBehavior 
+                    InvalidStyle="{StaticResource InvalidEntryStyle}"
+                    Flags="ValidateOnValueChanged"/>
+            </Entry.Behaviors>
+        </Entry>
+
+        <!-- Remember Me Checkbox -->
+        <HorizontalStackLayout Spacing="10">
+            <CheckBox IsChecked="{Binding RememberMe}"/>
+            <Label Text="Remember me" 
+                   VerticalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleRememberMeCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </HorizontalStackLayout>
+
+        <!-- Login Button -->
+        <Button Text="Login" 
+                Command="{Binding LoginCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                CornerRadius="10"
+                HeightRequest="50"
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="White"/>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                          IsVisible="{Binding IsBusy}"
+                          Color="{StaticResource Primary}"/>
+
+        <!-- Error Message -->
+        <Label Text="{Binding ErrorMessage}"
+               TextColor="{StaticResource Danger}"
+               IsVisible="{Binding HasError}"
+               HorizontalTextAlignment="Center"/>
+
+        <!-- Register Link -->
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+            <Label Text="No account?"/>
+            <Label Text="Register now" 
+                   TextColor="{StaticResource Primary}"
+                   TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToRegisterCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

@@ -9,6 +9,13 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="{StaticResource Danger}"/>
+                <Setter Property="PlaceholderColor" Value="{StaticResource Danger}"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource Gray200}"/>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
